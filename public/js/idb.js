@@ -24,25 +24,24 @@ request.onupgradeneeded = function(event) {
   function saveRecord(record) {
     const transaction = db.transaction(['new_expense'], 'readwrite');
     const expenseObjectStore = transaction.objectStore('new_expense');
-    const getAll = 
   
     // add record to your store with add method.
     expenseObjectStore.add(record);
   }
   
-  function uploadPizza() {
+  function uploadExpense() {
     // open a transaction on your pending db
-    const transaction = db.transaction(['new_pizza'], 'readwrite');
+    const transaction = db.transaction(['new_expense'], 'readwrite');
     // access your pending object store
-    const pizzaObjectStore = transaction.objectStore('new_pizza');
+    const expenseObjectStore = transaction.objectStore('new_expense');
   
     // get all records from store and set to a variable
-    const getAll = pizzaObjectStore.getAll();
+    const getAll = expenseObjectStore.getAll();
   
     getAll.onsuccess = function() {
       // if there was data in indexedDb's store, let's send it to the api server
       if (getAll.result.length > 0) {
-        fetch('/api/pizzas', {
+        fetch('/api/transaction', {
           method: 'POST',
           body: JSON.stringify(getAll.result),
           headers: {
@@ -56,10 +55,10 @@ request.onupgradeneeded = function(event) {
               throw new Error(serverResponse);
             }
   
-            const transaction = db.transaction(['new_pizza'], 'readwrite');
-            const pizzaObjectStore = transaction.objectStore('new_pizza');
+            const transaction = db.transaction(['new_expense'], 'readwrite');
+            const expenseObjectStore = transaction.objectStore('new_expense');
             // clear all items in your store
-            pizzaObjectStore.clear();
+            expenseObjectStore.clear();
           })
           .catch(err => {
             // set reference to redirect back here
@@ -70,5 +69,5 @@ request.onupgradeneeded = function(event) {
   }
   
   // listen for app coming back online
-  window.addEventListener('online', uploadPizza);
+  window.addEventListener('online', uploadexpense);
   
