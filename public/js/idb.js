@@ -1,10 +1,9 @@
 let db;
-
 const request = indexedDB.open('wheres_my_money', 1)
 
 request.onupgradeneeded = function(event) {
     const db = event.target.result;
-    db.createObjectStore('new_pizza', { autoIncrement: true });
+    db.createObjectStore('new_expense', { autoIncrement: true });
   };
   
   request.onsuccess = function(event) {
@@ -13,7 +12,7 @@ request.onupgradeneeded = function(event) {
   
     // check if app is online, if yes run checkDatabase() function to send all local db data to api
     if (navigator.onLine) {
-      uploadPizza();
+      uploadExpense();
     }
   };
   
@@ -23,18 +22,17 @@ request.onupgradeneeded = function(event) {
   };
   
   function saveRecord(record) {
-    const transaction = db.transaction(['new_pizza'], 'readwrite');
-  
-    const pizzaObjectStore = transaction.objectStore('new_pizza');
+    const transaction = db.transaction(['new_expense'], 'readwrite');
+    const expenseObjectStore = transaction.objectStore('new_expense');
+    const getAll = 
   
     // add record to your store with add method.
-    pizzaObjectStore.add(record);
+    expenseObjectStore.add(record);
   }
   
   function uploadPizza() {
     // open a transaction on your pending db
     const transaction = db.transaction(['new_pizza'], 'readwrite');
-  
     // access your pending object store
     const pizzaObjectStore = transaction.objectStore('new_pizza');
   
