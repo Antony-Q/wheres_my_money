@@ -1,19 +1,25 @@
+const FILES_TO_CACHE = [
+    "/",
+    "./index.html",
+    "./public/css/style.css",
+    "./public/js/idb.js",
+    "./public/js/index.js",
+    "./public/css/style.css",
+    "./public/css/style.css",
+    "./public/css/style.css",
+    "./public/css/style.css",
+    "./public/css/style.css",
+    "./assets/css/bootstrap.css",
+    "./assets/css/tickets.css",
+    "./dist/app.bundle.js",
+    "./dist/events.bundle.js",
+    "./dist/tickets.bundle.js",
+    "./dist/schedule.bundle.js"
+];
+
 const APP_PREFIX = 'FoodEvent-';     
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION
-const FILES_TO_CACHE = [
-  "./index.html",
-  "./events.html",
-  "./tickets.html",
-  "./schedule.html",
-  "./assets/css/style.css",
-  "./assets/css/bootstrap.css",
-  "./assets/css/tickets.css",
-  "./dist/app.bundle.js",
-  "./dist/events.bundle.js",
-  "./dist/tickets.bundle.js",
-  "./dist/schedule.bundle.js"
-];
 
 // Respond with cached resources
 self.addEventListener('fetch', function (e) {
